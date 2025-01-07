@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.0-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:12.6.2-cudnn-devel-ubuntu20.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -20,18 +20,18 @@ RUN apt-get update && apt-get install -y \
 
 # Now install Python 3.10 and related packages
 RUN apt-get install -y \
-    python3.12 \
-    python3.12-distutils \
-    python3.12-dev \
+    python3.10 \
+    python3.10-distutils \
+    python3.10-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip and set Python alternatives
 RUN wget https://bootstrap.pypa.io/get-pip.py \
-    && python3.12 get-pip.py \
+    && python3.10 get-pip.py \
     && rm get-pip.py \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
 
 # Verify Python installation
 RUN python --version && python -m pip --version
@@ -82,9 +82,8 @@ RUN wandb login $WANDB_API_KEY
 ENTRYPOINT ["nvidia-smi"]
 
 
-
-# docker build -t nguyenvanhaibk92/jaxaistack:2024.12.10 .
-# apptainer pull docker://nguyenvanhaibk92/jaxaistack:2024.12.10
-# apptainer shell --nv jaxaistack
+# docker build --platform linux/arm64 -t nguyenvanhaibk92/jaxaistack_vista:2024.12.10 .
+# apptainer pull docker://nguyenvanhaibk92/jaxaistack_vista:2024.12.10
+# apptainer shell --nv jaxaistack_vista
 
 
