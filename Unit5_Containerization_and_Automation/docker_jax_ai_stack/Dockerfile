@@ -20,18 +20,18 @@ RUN apt-get update && apt-get install -y \
 
 # Now install Python 3.10 and related packages
 RUN apt-get install -y \
-    python3.12 \
-    python3.12-distutils \
-    python3.12-dev \
+    python3.11 \
+    python3.11-distutils \
+    python3.11-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip and set Python alternatives
 RUN wget https://bootstrap.pypa.io/get-pip.py \
-    && python3.12 get-pip.py \
+    && python3.11 get-pip.py \
     && rm get-pip.py \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 
 # Verify Python installation
 RUN python --version && python -m pip --version

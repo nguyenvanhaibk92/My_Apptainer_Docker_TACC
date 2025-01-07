@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.2-cudnn-devel-ubuntu20.04
+FROM nvidia/cuda:12.6.2-cudnn-devel-ubuntu24.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -18,20 +18,20 @@ RUN apt-get update && apt-get install -y \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update
 
-# Now install Python 3.10 and related packages
+# Now install Python 3.11 and related packages
 RUN apt-get install -y \
-    python3.10 \
-    python3.10-distutils \
-    python3.10-dev \
+    python3.11 \
+    python3.11-distutils \
+    python3.11-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip and set Python alternatives
 RUN wget https://bootstrap.pypa.io/get-pip.py \
-    && python3.10 get-pip.py \
+    && python3.11 get-pip.py \
     && rm get-pip.py \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 
 # Verify Python installation
 RUN python --version && python -m pip --version
