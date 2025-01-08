@@ -73,7 +73,8 @@ RUN python -m pip install --no-cache-dir \
     tqdm \
     tensorboard \
     datasets \
-    ml_collections 
+    ml_collections \
+    plotly
 
 # Set environment variable for wandb API key # Login to wandb
 ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
