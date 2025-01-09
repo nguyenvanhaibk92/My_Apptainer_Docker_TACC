@@ -10,12 +10,13 @@ RUN apt-get update && apt-get install -y \
 
 # Add deadsnakes PPA
 RUN add-apt-repository ppa:deadsnakes/ppa
-
 # Install Python 3.10
+
 RUN apt-get update && apt-get install -y \
     python3.10 \
     python3.10-distutils \
     python3.10-dev \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip for Python 3.10
@@ -41,7 +42,7 @@ ENV PATH="/usr/local/cuda/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda/compat:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
 
 # Install compatible versions of requests and its dependencies
-RUN python3.10 -m pip install requests==2.31.0 urllib3==1.26.18 chardet==4.0.0
+RUN python3.10 -m pip install requests==2.31.0 urllib3==1.26.18 chardet==4.0.0 ipywidgets
 
 RUN python3.10 -m pip install --upgrade "jax[cuda12]==0.4.26"
 RUN python3.10 -m pip install optax==0.2.2 Chex==0.1.86
@@ -50,6 +51,8 @@ RUN python3.10 -m pip install --no-deps flax==0.8.2
 RUN python3.10 -m pip install typing-extensions PyYAML rich msgpack tensorstore 
 RUN python3.10 -m pip install --no-deps orbax-checkpoint==0.6.4
 RUN python3.10 -m pip install absl-py etils typing_extensions pyyaml nest_asyncio protobuf humanize fsspec importlib_resources zipp simplejson
+
+RUN python3.10 -m pip install --upgrade git+https://github.com/matthias-wright/flaxmodels.git
 
 # Install PyTorch
 RUN python3.10 -m pip install torch==2.2.0 torchvision==0.17.0
