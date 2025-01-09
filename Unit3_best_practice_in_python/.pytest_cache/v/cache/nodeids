@@ -1,0 +1,4 @@
+[
+  "test_ml_data_analysis.py::test_compute_average_mass",
+  "test_ml_data_analysis.py::test_compute_average_mass_exceptions"
+]

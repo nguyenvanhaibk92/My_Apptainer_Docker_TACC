@@ -1,0 +1,11 @@
+---
+version: '3'
+services:
+  flask-app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: nguyenvanhaibk92/coe332:0.0
+    volumes:
+      - ./config.yaml:/config.yaml
+      
