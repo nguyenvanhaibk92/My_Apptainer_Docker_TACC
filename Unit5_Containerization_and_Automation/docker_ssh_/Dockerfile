@@ -1,24 +1,23 @@
-FROM ubuntu:22.04
+FROM nvidia/cuda:12.6.0-cudnn-devel-ubuntu20.04
 
-# Install SSH server and required packages
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive \
+    NVIDIA_VISIBLE_DEVICES=all \
+    NVIDIA_DRIVER_CAPABILITIES=compute,utility \
+    CUDA_HOME="/usr/local/cuda" \
+    PATH="/usr/local/cuda/bin:${PATH}" \
+    LD_LIBRARY_PATH="/usr/local/cuda/compat:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}" \
+    PYTHONUNBUFFERED=1
+
+# First install basic dependencies and add deadsnakes PPA
 RUN apt-get update && apt-get install -y \
-    openssh-server \
-    sudo \
-    && rm -rf /var/lib/apt/lists/*
+    software-properties-common \
+    curl \
+    wget \
+    git \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update
 
-# Configure SSH
-RUN mkdir /var/run/sshd
-RUN echo 'root:password' | chpasswd
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-# SSH login fix
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-# Expose SSH port
-EXPOSE 22
-
-# Start SSH service
-CMD ["/usr/sbin/sshd", "-D"]
-
-
+FROM qmcgaw/latexdevcontainer
+RUN tlmgr install lastpage
 

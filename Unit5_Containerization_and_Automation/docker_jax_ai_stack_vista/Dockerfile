@@ -82,7 +82,6 @@ RUN wandb login $WANDB_API_KEY
 
 ENTRYPOINT ["nvidia-smi"]
 
-
 # docker build --platform linux/arm64 -t nguyenvanhaibk92/jaxaistack_vista:2024.12.10 .
 # apptainer pull docker://nguyenvanhaibk92/jaxaistack_vista:2024.12.10
 # apptainer shell --nv jaxaistack_vista
