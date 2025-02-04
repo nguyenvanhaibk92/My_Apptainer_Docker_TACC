@@ -79,6 +79,8 @@ RUN python -m pip install --no-cache-dir \
     ml_collections \
     plotly
 
+RUN python -m pip install clu
+
 # Set environment variable for wandb API key # Login to wandb
 ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
 RUN wandb login $WANDB_API_KEY 
