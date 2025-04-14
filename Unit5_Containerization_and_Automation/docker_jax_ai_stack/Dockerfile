@@ -18,31 +18,34 @@ RUN apt-get update && apt-get install -y \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update
 
+RUN apt-get update -y \
+    && apt-get install -qy build-essential wget libfontconfig1
+
 # Now install Python 3.10 and related packages
 RUN apt-get install -y \
-    python3.11 \
-    python3.11-distutils \
-    python3.11-dev \
+    python3.10 \
+    python3.10-distutils \
+    python3.10-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip and set Python alternatives
 RUN wget https://bootstrap.pypa.io/get-pip.py \
-    && python3.11 get-pip.py \
+    && python3.10 get-pip.py \
     && rm get-pip.py \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
 
 # Verify Python installation
 RUN python --version && python -m pip --version
 
 # Install core dependencies
 RUN python -m pip install --no-cache-dir \
-    jax[cuda12]==0.4.37 \
+    jax[cuda12]==0.4.38 \
     flax==0.10.2 \
     ml_dtypes==0.4.0 \
     optax==0.2.4 \
-    orbax-checkpoint==0.10.2 \
+    orbax-checkpoint==0.11.0 \
     orbax-export==0.0.6
 
 # Install TFDS dependencies
@@ -52,7 +55,7 @@ RUN python -m pip install --no-cache-dir \
 
 # Install Grain
 RUN python -m pip install --no-cache-dir \
-    grain==0.2.2
+    grain==0.2.3
 
 # Install development dependencies
 RUN python -m pip install --no-cache-dir \
@@ -76,13 +79,11 @@ RUN python -m pip install --no-cache-dir \
     ml_collections \
     plotly
 
+RUN python -m pip install clu
+
 # Set environment variable for wandb API key # Login to wandb
 ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
 RUN wandb login $WANDB_API_KEY 
-
-ENTRYPOINT ["nvidia-smi"]
-
-
 
 # docker build -t nguyenvanhaibk92/jaxaistack:2024.12.10 .
 # apptainer pull docker://nguyenvanhaibk92/jaxaistack:2024.12.10

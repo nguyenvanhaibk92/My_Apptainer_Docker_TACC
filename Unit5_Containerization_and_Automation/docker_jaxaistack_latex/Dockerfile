@@ -23,18 +23,18 @@ RUN apt-get update -y \
 
 # Now install Python 3.10 and related packages
 RUN apt-get install -y \
-    python3.11 \
-    python3.11-distutils \
-    python3.11-dev \
+    python3.10 \
+    python3.10-distutils \
+    python3.10-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip and set Python alternatives
 RUN wget https://bootstrap.pypa.io/get-pip.py \
-    && python3.11 get-pip.py \
+    && python3.10 get-pip.py \
     && rm get-pip.py \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
 
 # Verify Python installation
 RUN python --version && python -m pip --version
@@ -45,7 +45,7 @@ RUN python -m pip install --no-cache-dir \
     flax==0.10.2 \
     ml_dtypes==0.4.0 \
     optax==0.2.4 \
-    orbax-checkpoint==0.10.2 \
+    orbax-checkpoint==0.11.0 \
     orbax-export==0.0.6
 
 # Install TFDS dependencies
@@ -97,8 +97,8 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
 ENV PATH="/usr/local/texlive/2024/bin/x86_64-linux/:${PATH}"
 
 # docker build -t nguyenvanhaibk92/jaxaistack_latex:2024.12.10 .
-# docker build -t nguyenvanhaibk92/jaxaistack_latex:2024.12.10 .
 # apptainer pull docker://nguyenvanhaibk92/jaxaistack_latex:2024.12.10
-# apptainer shell --nv jaxaistack
+# apptainer shell --nv jaxaistack_latex_2024.12.10.sif
+
 
 
