@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     git \
+    tmux \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update
 
@@ -25,8 +26,8 @@ RUN apt-get install -y \
     python3.11-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Install pip and set Python alternatives
+    
+    # Install pip and set Python alternative
 RUN wget https://bootstrap.pypa.io/get-pip.py \
     && python3.11 get-pip.py \
     && rm get-pip.py \
@@ -80,7 +81,6 @@ RUN python -m pip install --no-cache-dir \
 ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
 RUN wandb login $WANDB_API_KEY 
 
-ENTRYPOINT ["nvidia-smi"]
 
 # docker build --platform linux/arm64 -t nguyenvanhaibk92/jaxaistack_vista:2024.12.10 .
 # apptainer pull docker://nguyenvanhaibk92/jaxaistack_vista:2024.12.10

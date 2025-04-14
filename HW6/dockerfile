@@ -1,0 +1,20 @@
+# Use Python 3.11 slim version as the base image
+FROM python:3.11-slim
+
+# Set the working directory inside the container to /app
+WORKDIR /app
+
+# Copy requirements.txt from the host to the container
+COPY requirements.txt requirements.txt
+
+# Install Python dependencies listed in requirements.txt without caching
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the gene_api.py script into the container
+COPY gene_api.py gene_api.py
+
+# Expose port 5000 for the application to listen on
+EXPOSE 5000
+
+# Define the command to run the application when the container starts
+CMD ["python", "gene_api.py"]

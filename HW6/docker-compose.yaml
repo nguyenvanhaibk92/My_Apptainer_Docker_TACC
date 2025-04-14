@@ -1,0 +1,18 @@
+# docker-compose.yaml
+version: '3.8'
+
+services:
+  redis:
+    image: redis
+    container_name: hgnc-redis
+    ports:
+      - "6379:6379"
+
+  flask-app:
+    build: .
+    container_name: hgnc-flask
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+
