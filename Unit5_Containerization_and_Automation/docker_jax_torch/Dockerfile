@@ -58,11 +58,22 @@ RUN python3.10 -m pip install --upgrade git+https://github.com/matthias-wright/f
 RUN python3.10 -m pip install torch==2.2.0 torchvision==0.17.0
 
 # Install wandb and other common Python packages
-RUN python3.10 -m pip install numpy==1.25.2 pandas matplotlib wandb rich seaborn tqdm tensorboard
+RUN python3.10 -m pip install numpy==1.25.2 pandas matplotlib wandb rich seaborn tqdm tensorboard scikit-learn 
 
 # Set environment variable for wandb API key # Login to wandb
 ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
-RUN wandb login $WANDB_API_KEY 
+RUN wandb login $WANDB_API_KEY
+
+# Install TexLive with scheme-basic
+RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
+	mkdir /install-tl-unx; \
+	tar -xvf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
+    echo "selected_scheme scheme-full" >> /install-tl-unx/texlive.profile; \
+	/install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
+    rm -r /install-tl-unx; \
+	rm install-tl-unx.tar.gz
+
+ENV PATH="/usr/local/texlive/2024/bin/x86_64-linux/:${PATH}"
 
 # docker build -t nguyenvanhaibk92/jaxtorch:v0.4.26 .
 # apptainer pull docker://nguyenvanhaibk92/jaxtorch:v0.4.26

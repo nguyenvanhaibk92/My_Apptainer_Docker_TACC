@@ -10,14 +10,16 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1
 
 # First install basic dependencies and add deadsnakes PPA
+# First install basic dependencies and add deadsnakes PPA
 RUN apt-get update && apt-get install -y \
     software-properties-common \
     curl \
     wget \
     git \
+    tmux \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update
-
+    
 RUN apt-get update -y \
     && apt-get install -qy build-essential wget libfontconfig1
 

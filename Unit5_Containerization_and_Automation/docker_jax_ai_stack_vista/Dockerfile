@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PATH="/usr/local/cuda/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/cuda/compat:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}" \
     PYTHONUNBUFFERED=1
-
+    
 # First install basic dependencies and add deadsnakes PPA
 RUN apt-get update && apt-get install -y \
     software-properties-common \
