@@ -1,0 +1,31 @@
+# ==============================================================================
+# Ultra-Minimal Python Environment for ppc64le Testing
+# ==============================================================================
+# This version avoids package installation issues by using only the base image
+#
+# Build command:
+# docker buildx build --platform linux/ppc64le -t nguyenvanhaibk92/python-ppc64le-test .
+# ==============================================================================
+
+# Base Python image for ppc64le architecture
+FROM --platform=linux/ppc64le python:3.11-slim
+
+# Set basic environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Set working directory
+WORKDIR /workspace
+
+# Default command - start an interactive Python shell
+CMD ["python3"]
+
+# ==============================================================================
+# Usage Instructions:
+# ==============================================================================
+#
+# 1. Build: docker buildx build --platform linux/ppc64le -t nguyenvanhaibk92/python-ppc64le-test .
+# 2. Test interactively: docker run --platform linux/ppc64le -it nguyenvanhaibk92/python-ppc64le-test
+# 3. Test with bash: docker run --platform linux/ppc64le -it nguyenvanhaibk92/python-ppc64le-test bash
+# 4. Quick test: docker run --platform linux/ppc64le nguyenvanhaibk92/python-ppc64le-test python3 -c "import platform; print(platform.machine())"
+#
+# ==============================================================================
