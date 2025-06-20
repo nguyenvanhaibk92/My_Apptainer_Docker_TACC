@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and install necessary packages
@@ -65,13 +65,15 @@ RUN python3.10 -m pip install \
     pillow==11.2.1 \
     h5py==3.13.0 \
     networkx==3.4.2 \
-    pytorch-lightning==2.5.1.post0 \
-    torchmetrics==1.7.1 \
-    torch-geometric==2.6.1 \
-    torchinfo==1.8.0 \
     timm==1.0.15 \
     huggingface-hub==0.31.2 \
     safetensors==0.5.3
+
+RUN python3.10 -m pip install \
+    pytorch-lightning\
+    torchmetrics\
+    torch-geometric\
+    torchinfo
     
 # Install Jupyter and development tools
 RUN python3.10 -m pip install \
@@ -81,9 +83,13 @@ RUN python3.10 -m pip install \
     ipdb==0.13.13 \
     pdbpp==0.11.6 
 
+RUN python3.10 -m pip install e3nn==0.5.6
+
 # Set environment variable for wandb API key and login to wandb
-# ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
-# RUN wandb login $WANDB_API_KEY
+ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
+RUN wandb login $WANDB_API_KEY
+
+
 
 # Updated build commands:
 # docker build --platform linux/arm64 -t nguyenvanhaibk92/pytorch_cuda128_vista:v2.6.0 .
