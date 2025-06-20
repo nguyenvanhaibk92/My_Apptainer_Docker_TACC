@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.2-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -87,8 +87,8 @@ ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
 RUN wandb login $WANDB_API_KEY 
 
 
-# docker build --platform linux/arm64 -t nguyenvanhaibk92/jaxaistack_vista:2024.12.10 .
-# apptainer pull docker://nguyenvanhaibk92/jaxaistack_vista:2024.12.10
-# apptainer shell --nv jaxaistack_vista
+# docker build --platform linux/arm64 -t nguyenvanhaibk92/jaxaistack_vista_cuda128.1:2024.12.10 .
+# apptainer pull docker://nguyenvanhaibk92/jaxaistack_vista_cuda128.1:2024.12.10
+# apptainer shell --nv jaxaistack_vista_cuda128.1
 
 

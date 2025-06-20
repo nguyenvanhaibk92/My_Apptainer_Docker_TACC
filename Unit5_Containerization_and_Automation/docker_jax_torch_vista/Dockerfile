@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.2-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu24.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and install necessary packages
@@ -36,7 +36,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
-# Set environment variables for CUDA
+# Set environment variables for CUDA 12.8
 ENV CUDA_HOME="/usr/local/cuda"
 ENV PATH="/usr/local/cuda/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda/compat:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
@@ -44,8 +44,9 @@ ENV LD_LIBRARY_PATH="/usr/local/cuda/compat:/usr/local/cuda/lib64:${LD_LIBRARY_P
 # Install compatible versions of requests and its dependencies
 RUN python3.10 -m pip install requests==2.31.0 urllib3==1.26.18 chardet==4.0.0 ipywidgets
 
-# Install PyTorch with CUDA 12.6 support
-RUN python3.10 -m pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu126
+# Install PyTorch with CUDA 12.4 support (latest stable for CUDA 12.x)
+# Note: PyTorch doesn't have specific CUDA 12.8 builds yet, but 12.4 is forward compatible
+RUN python3.10 -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
 # Install additional packages to match your environment
 RUN python3.10 -m pip install \
@@ -71,7 +72,7 @@ RUN python3.10 -m pip install \
     timm==1.0.15 \
     huggingface-hub==0.31.2 \
     safetensors==0.5.3
-
+    
 # Install Jupyter and development tools
 RUN python3.10 -m pip install \
     jupyter==1.1.1 \
@@ -84,10 +85,11 @@ RUN python3.10 -m pip install \
 # ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
 # RUN wandb login $WANDB_API_KEY
 
-# docker build --platform linux/arm64 -t nguyenvanhaibk92/pytorch_cuda126_vista:v2.6.0 .
-# apptainer pull docker://nguyenvanhaibk92/pytorch_cuda126_vista:v2.6.0
-# apptainer shell --nv pytorch_cuda126_vista_v2.6.0.sif
+# Updated build commands:
+# docker build --platform linux/arm64 -t nguyenvanhaibk92/pytorch_cuda128_vista:v2.6.0 .
+# apptainer pull docker://nguyenvanhaibk92/pytorch_cuda128_vista:v2.6.0
+# apptainer shell --nv pytorch_cuda128_vista_v2.6.0.sif
 
-
-
-
+# docker build --platform linux/arm64 -t nguyenvanhaibk92/pytorch_cuda128_vista:v2.7.1 .
+# apptainer pull docker://nguyenvanhaibk92/pytorch_cuda128_vista:v2.7.1
+# apptainer shell --nv pytorch_cuda128_vista_v2.7.1.sif
