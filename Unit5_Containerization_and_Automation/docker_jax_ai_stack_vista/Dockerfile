@@ -42,21 +42,22 @@ RUN python --version && python -m pip --version
 
 # Install core dependencies
 RUN python -m pip install --no-cache-dir \
-    jax[cuda12]==0.4.37 \
-    flax==0.10.2 \
-    ml_dtypes==0.4.0 \
+    jax[cuda12]==0.5.3 \
+    chex==0.1.89 \
+    flax==0.10.5 \
+    ml_dtypes==0.5.1 \
     optax==0.2.4 \
-    orbax-checkpoint==0.10.2 \
+    orbax-checkpoint==0.11.12 \
     orbax-export==0.0.6
 
 # Install TFDS dependencies
 RUN python -m pip install --no-cache-dir \
-    tensorflow==2.18.0 \
-    tensorflow_datasets==4.9.7
+    tensorflow==2.19.0 \
+    tensorflow_datasets==4.9.8
 
 # Install Grain
 RUN python -m pip install --no-cache-dir \
-    grain==0.2.2
+    grain==0.2.7
 
 # Install development dependencies
 RUN python -m pip install --no-cache-dir \
