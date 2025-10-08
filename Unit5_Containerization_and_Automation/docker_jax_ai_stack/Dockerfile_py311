@@ -94,6 +94,11 @@ exec "$@"' > /usr/local/bin/entrypoint.sh && \
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["bash"]
 
-# docker build --platform linux/arm64 -t nguyenvanhaibk92/arm64_jaxaistack_cuda1281:v3.11 .
-# apptainer pull docker://nguyenvanhaibk92/arm64_jaxaistack_cuda1281:v3.11
-# apptainer shell --nv arm64_jaxaistack_cuda1281_v3.11.sif
+# Build and run commands:
+# docker build -t nguyenvanhaibk92/x86_64_jaxaistack_cuda1281:v3.11 .
+# docker push nguyenvanhaibk92/x86_64_jaxaistack_cuda1281:v3.11
+# apptainer pull docker://nguyenvanhaibk92/x86_64_jaxaistack_cuda1281:v3.11
+# apptainer shell --nv x86_64_jaxaistack_cuda1281_v3.11.sif
+# 
+# Inside container, test JAX GPU detection:
+# python -c "import jax; print('JAX devices:', jax.devices())"

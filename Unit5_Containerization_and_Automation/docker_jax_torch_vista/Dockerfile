@@ -89,8 +89,6 @@ RUN python3.10 -m pip install e3nn==0.5.6
 ENV WANDB_API_KEY=6128eac130254e0a9810543ff04f3c0696510b50
 RUN wandb login $WANDB_API_KEY
 
-
-
 # Updated build commands:
 # docker build --platform linux/arm64 -t nguyenvanhaibk92/pytorch_cuda128_vista:v2.6.0 .
 # apptainer pull docker://nguyenvanhaibk92/pytorch_cuda128_vista:v2.6.0
